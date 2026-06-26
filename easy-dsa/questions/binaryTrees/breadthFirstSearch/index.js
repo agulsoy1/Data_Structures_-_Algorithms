@@ -6,6 +6,7 @@
  */
 
 const breadthFirstSearch = (root) => {
+  if (root === null) return [];
   const queue = [root];
   const result = [];
 

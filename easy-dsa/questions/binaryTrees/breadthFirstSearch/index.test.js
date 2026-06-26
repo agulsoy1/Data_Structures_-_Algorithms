@@ -8,52 +8,41 @@ class Node {
   }
 }
 
-const A = new Node("A");
-const B = new Node("B");
-const C = new Node("C");
-const D = new Node("D");
-const E = new Node("E");
-const F = new Node("F");
+test("breadth first search on a tree", () => {
+  const A = new Node("A");
+  const B = new Node("B");
+  const C = new Node("C");
+  const D = new Node("D");
+  const E = new Node("E");
+  const F = new Node("F");
 
-A.left = B;
-A.right = C;
-B.left = D;
-B.right = E;
-C.left = F;
+  A.left = B;
+  A.right = C;
+  B.left = D;
+  B.right = E;
+  C.left = F;
 
-function tester(root) {
-  const set = new Set();
-  let curr = head;
-
-  while (curr) {
-    if (set.has(curr)) return true;
-    set.add(curr);
-    curr = curr.next;
-  }
-
-  return false;
-}
-
-test(" ", () => {
-  let clone1 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  let clone2 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  expect(breadthFirstSearch(clone1)).toStrictEqual(tester(clone2));
+  expect(breadthFirstSearch(A)).toStrictEqual(["A", "B", "C", "D", "E", "F"]);
 });
 
-test(" ", () => {
-  let clone1 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  let clone2 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  expect(breadthFirstSearch(clone1)).toStrictEqual(tester(clone2));
+test("breadth first search on a single node", () => {
+  const A = new Node("A");
+  expect(breadthFirstSearch(A)).toStrictEqual(["A"]);
 });
 
-test(" ", () => {
-  let clone1 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  let clone2 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  expect(breadthFirstSearch(clone1)).toStrictEqual(tester(clone2));
+test("breadth first search on null root", () => {
+  expect(breadthFirstSearch(null)).toStrictEqual([]);
 });
 
-test(" ", () => {
-  let clone1 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  let clone2 = Object.assign(Object.create(Object.getPrototypeOf(A)), A);
-  expect(breadthFirstSearch(clone1)).toStrictEqual(tester(clone2));
+test("breadth first search on a skewed tree", () => {
+  const A = new Node("A");
+  const B = new Node("B");
+  const C = new Node("C");
+  const D = new Node("D");
+
+  A.right = B;
+  B.right = C;
+  C.right = D;
+
+  expect(breadthFirstSearch(A)).toStrictEqual(["A", "B", "C", "D"]);
 });
